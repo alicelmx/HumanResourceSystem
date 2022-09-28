@@ -33,4 +33,10 @@ public class EmployeeList {
     public void deleteEmployee(Employee employee) {
         this.employeeList.remove(employee);
     }
+    
+    public int count() {
+        return this.employeeList.size();
+    }
+    
+    
 }

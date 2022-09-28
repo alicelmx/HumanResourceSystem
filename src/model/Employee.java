@@ -11,7 +11,7 @@ package model;
 public class Employee {
   
     private String name;
-    private String employeeId;
+    private Integer employeeId;
     private Integer age;
     private String gender;
     private String startDate;
@@ -30,11 +30,11 @@ public class Employee {
         this.name = name;
     }
 
-    public String getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -108,5 +108,10 @@ public class Employee {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
+    }
+    
+    @Override
+    public String toString() {
+        return String.valueOf(employeeId);
     }
 }
