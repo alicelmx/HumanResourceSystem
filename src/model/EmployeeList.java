@@ -5,6 +5,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -38,5 +40,9 @@ public class EmployeeList {
         return this.employeeList.size();
     }
     
-    
+    public Employee queryById(Integer employeeId) {
+        List<Employee> employees = this.employeeList.stream()
+                .filter(s->s.getEmployeeId().equals(employeeId)).collect(Collectors.toList());  
+        return employees.get(0);
+    }
 }

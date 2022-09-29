@@ -5,11 +5,13 @@
 package ui;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.io.File;
 import java.util.UUID;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
 import model.Employee;
 import model.EmployeeList;
 
@@ -149,8 +151,10 @@ public class CreateJPanel extends javax.swing.JPanel {
             }
         });
 
+        lblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIcon.setToolTipText("");
         lblIcon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        lblIcon.setPreferredSize(new Dimension(120, 166));
+        lblIcon.setPreferredSize(new java.awt.Dimension(120, 1));
 
         btnUpload.setText("Upload");
         btnUpload.addActionListener(new java.awt.event.ActionListener() {
@@ -168,14 +172,15 @@ public class CreateJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(lblDate2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblDate2)
+                        .addGap(159, 159, 159))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnUpload)
-                        .addGap(29, 29, 29)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIcon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnUpload)
+                                .addGap(28, 28, 28)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,10 +270,10 @@ public class CreateJPanel extends javax.swing.JPanel {
                                 .addComponent(btnSave))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnUpload)))))
-                .addGap(210, 210, 210))
+                .addGap(195, 195, 195))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblAge, lblGender, lblName, lblStartDate});
@@ -288,11 +293,11 @@ public class CreateJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtLevelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+
         Employee employee = new Employee();
         employee.setName(txtName.getText());
         employee.setEmployeeId(employeeList.count());
-        // todo: 各种 check
+        // TODO: 各种 check
         employee.setAge(Integer.parseInt(ftxtAge.getText()));
         employee.setGender(txtGender.getText());
         employee.setStartDate(ftxtStartDate.getText());
@@ -301,8 +306,8 @@ public class CreateJPanel extends javax.swing.JPanel {
         employee.setPositionTitle(txtPositionTitle.getText());
         employee.setPhone(ftxtCellPhone.getText());
         employee.setEmail(ftxtEmail.getText());
-        // todo: photo
-
+        // TODO: photo
+        employee.setPhoto((ImageIcon) lblIcon.getIcon());
         employeeList.addNewEmployee(employee);
 
         JOptionPane.showMessageDialog(this, "New Employee Added.");
@@ -316,6 +321,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         txtPositionTitle.setText("");
         ftxtCellPhone.setText("");
         ftxtEmail.setText("");
+//        lblIcon.setIcon();
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -374,9 +380,13 @@ public class CreateJPanel extends javax.swing.JPanel {
             file = fileChooser.getSelectedFile();// 获得用户选取的文件对象
             selectPhotoFlag = 1;
             if (file != null) {
-                ImageIcon icon = new ImageIcon(file.getAbsolutePath());// 创建照片对象
+                ImageIcon imageIcon= new ImageIcon(file.getAbsolutePath());// 创建照片对象
+                Image img = imageIcon.getImage();
+		img = img.getScaledInstance(120, 160, Image.SCALE_AREA_AVERAGING);
+		imageIcon.setImage(img);
+    
                 lblIcon.setText(null);// 取消提示文字
-                lblIcon.setIcon(icon);// 显示照片
+                lblIcon.setIcon(imageIcon);// 显示照片
             }
         }
     }//GEN-LAST:event_btnUploadActionPerformed

@@ -4,6 +4,8 @@
  */
 package model;
 
+import javax.swing.ImageIcon;
+
 /**
  * employee model
  * @author limingxia
@@ -20,7 +22,7 @@ public class Employee {
     private String positionTitle;
     private String phone;
     private String email;
-    private byte[] photo; 
+    private ImageIcon photo; 
     
     public String getName() {
         return name;
@@ -102,11 +104,11 @@ public class Employee {
         this.email = email;
     }
 
-    public byte[] getPhoto() {
+    public ImageIcon getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(ImageIcon photo) {
         this.photo = photo;
     }
     

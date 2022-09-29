@@ -4,6 +4,11 @@
  */
 package ui;
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Employee;
 import model.EmployeeList;
@@ -13,10 +18,10 @@ import model.EmployeeList;
  * @author limingxia
  */
 public class ViewJFrame extends javax.swing.JFrame {
-    
+
     EmployeeList employeeList;
     Integer employeeId;
-    
+
     public ViewJFrame() {
         initComponents();
     }
@@ -24,10 +29,13 @@ public class ViewJFrame extends javax.swing.JFrame {
     public ViewJFrame(Integer employeeId, EmployeeList employeeList) {
         this.employeeList = employeeList;
         this.employeeId = employeeId;
-        
+
         initComponents();
+
+        initData();
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,8 +66,9 @@ public class ViewJFrame extends javax.swing.JFrame {
         ftxtAge = new javax.swing.JFormattedTextField();
         ftxtEmail = new javax.swing.JFormattedTextField();
         ftxtCellPhone = new javax.swing.JFormattedTextField();
+        lblIcon = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblAge.setText("Age:");
 
@@ -144,15 +153,22 @@ public class ViewJFrame extends javax.swing.JFrame {
             }
         });
 
+        lblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIcon.setToolTipText("");
+        lblIcon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblIcon.setPreferredSize(new java.awt.Dimension(120, 1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+            .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
+                .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDate2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +208,9 @@ public class ViewJFrame extends javax.swing.JFrame {
                 .addComponent(lblTitle)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(463, 463, 463)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(285, 285, 285)
                         .addComponent(lblDate2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
@@ -359,6 +377,7 @@ public class ViewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblDate2;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblGender;
+    private javax.swing.JLabel lblIcon;
     private javax.swing.JLabel lblLevel;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPositionTitle;
@@ -371,4 +390,25 @@ public class ViewJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtPositionTitle;
     private javax.swing.JTextField txtTeamInfo;
     // End of variables declaration//GEN-END:variables
+
+    private void initData() {
+
+        Employee employee = this.employeeList.queryById(this.employeeId);
+
+        ImageIcon imageIcon = employee.getPhoto();
+        Image img = imageIcon.getImage();
+        img = img.getScaledInstance(120, 160, Image.SCALE_AREA_AVERAGING);
+        imageIcon.setImage(img);
+        lblIcon.setIcon(imageIcon);
+        txtName.setText(employee.getName());
+        ftxtAge.setText(String.valueOf(employee.getAge()));
+        txtGender.setText(employee.getGender());
+        ftxtStartDate.setText(employee.getStartDate());
+        txtLevel.setText(employee.getLevel());
+        txtTeamInfo.setText(employee.getTeamInfo());
+        txtPositionTitle.setText(employee.getPositionTitle());
+        ftxtCellPhone.setText(employee.getPhone());
+        ftxtEmail.setText(employee.getEmail());
+
+    }
 }
