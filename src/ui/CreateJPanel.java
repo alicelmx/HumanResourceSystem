@@ -145,7 +145,7 @@ public class CreateJPanel extends javax.swing.JPanel {
             }
         });
 
-        ftxtStartDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
+        ftxtStartDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("09/22/2022"))));
         ftxtStartDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ftxtStartDateActionPerformed(evt);
@@ -218,10 +218,10 @@ public class CreateJPanel extends javax.swing.JPanel {
                                 .addComponent(lblPositionTitle)
                                 .addComponent(lblCellPhone)
                                 .addComponent(lblEmail))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblLevel)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblLevel)
                                     .addComponent(lblStartDate))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -360,14 +360,14 @@ public class CreateJPanel extends javax.swing.JPanel {
         }
 
         // start date
-        DateFormat formatter = new SimpleDateFormat(dateFormat);
-        Date startDate = null;
-        try {
-            startDate = formatter.parse(ftxtStartDate.getText());
-        } catch (Exception e3) {
-            JOptionPane.showMessageDialog(this, "Please Check Your Date Format.");
-            return;
-        }
+//        DateFormat formatter = new SimpleDateFormat(dateFormat);
+//        Date startDate = null;
+//        try {
+//            startDate = formatter.parse(ftxtStartDate.getText());
+//        } catch (Exception e3) {
+//            JOptionPane.showMessageDialog(this, "Please Check Your Date Format.");
+//            return;
+//        }
         employee.setStartDate(ftxtStartDate.getText());
 
         employee.setLevel(txtLevel.getText());
@@ -524,7 +524,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         rbtnFemale.setSelected(false);
         rbtnMale.setSelected(false);
         rbtnSecret.setSelected(false);
-        ftxtStartDate.setText(dateFormat);
+        ftxtStartDate.setText("");
         txtLevel.setText("");
         txtTeamInfo.setText("");
         txtPositionTitle.setText("");

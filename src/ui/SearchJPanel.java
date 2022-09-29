@@ -4,6 +4,7 @@
  */
 package ui;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Employee;
@@ -91,6 +92,12 @@ public class SearchJPanel extends javax.swing.JPanel {
             }
         });
 
+        txtKeyword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKeywordActionPerformed(evt);
+            }
+        });
+
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,24 +117,22 @@ public class SearchJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(btnView)
-                    .addGap(18, 18, 18)
-                    .addComponent(btnDelete)
-                    .addGap(28, 28, 28))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(132, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnView)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(btnSearch))
-                        .addComponent(jScrollPane1))
-                    .addGap(28, 28, 28)))
+                        .addComponent(jScrollPane1)))
+                .addGap(28, 28, 28))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDelete, btnSave, btnView});
@@ -189,41 +194,28 @@ public class SearchJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-        // TODO 实现搜索功能
+        
+        // search based on name id or other field;
+        String keyword = txtKeyword.getText();
+        if(keyword == null || keyword.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please Input the Keyword.");
+            populateTable();
+            return;
+        }
+        List<Employee> searchResList = this.employeeList.searchByKeyword(keyword);
+        
+        populateTable(searchResList);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+
         JOptionPane.showMessageDialog(this, "展示成功");
-        //        Employee employee = new Employee();
-        //        employee.setName(txtName.getText());
-        //        employee.setEmployeeId(getUUID());
-        //        // todo: 各种 check
-        //        employee.setAge(Integer.parseInt(ftxtAge.getText()));
-        //        employee.setGender(txtGender.getText());
-        //        employee.setStartDate(ftxtStartDate.getText());
-        //        employee.setLevel(txtLevel.getText());
-        //        employee.setTeamInfo(txtTeamInfo.getText());
-        //        employee.setPositionTitle(txtPositionTitle.getText());
-        //        employee.setPhone(ftxtCellPhone.getText());
-        //        employee.setEmail(ftxtEmail.getText());
-        //        // todo: photo
-        //
-        //        employeeList.addNewEmployee(employee);
-        //
-        //        JOptionPane.showMessageDialog(this, "New Employee Added.");
-        //
-        //        txtName.setText("");
-        //        ftxtAge.setText("");
-        //        txtGender.setText("");
-        //        ftxtStartDate.setText("");
-        //        txtLevel.setText("");
-        //        txtTeamInfo.setText("");
-        //        txtPositionTitle.setText("");
-        //        ftxtCellPhone.setText("");
-        //        ftxtEmail.setText("");
+        
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKeywordActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -256,5 +248,26 @@ public class SearchJPanel extends javax.swing.JPanel {
             model.addRow(row);
         }
 
+    }
+
+    private void populateTable(List<Employee> searchResList) {
+        
+        DefaultTableModel model = (DefaultTableModel) tbEmployeeList.getModel();
+        model.setRowCount(0);
+
+        for (Employee employee : searchResList) {
+
+            Object[] row = new Object[7];
+            row[0] = employee;
+            row[1] = employee.getName();
+            row[2] = employee.getGender();
+            row[3] = employee.getPositionTitle();
+            row[4] = employee.getTeamInfo();
+            row[5] = employee.getPhone();
+            row[6] = employee.getEmail();
+
+            model.addRow(row);
+            
+        }
     }
 }

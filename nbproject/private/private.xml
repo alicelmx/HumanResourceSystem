@@ -5,7 +5,10 @@
         <group>
             <file>file:/Users/limingxia/NetBeansProjects/HumanResourceSystem/src/model/EmployeeList.java</file>
             <file>file:/Users/limingxia/NetBeansProjects/HumanResourceSystem/src/model/Employee.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/HumanResourceSystem/src/ui/ViewJFrame.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/HumanResourceSystem/src/ui/SearchJPanel.java</file>
             <file>file:/Users/limingxia/NetBeansProjects/HumanResourceSystem/src/ui/CreateJPanel.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/HumanResourceSystem/src/ui/MainJFrame.java</file>
         </group>
     </open-files>
 </project-private>
