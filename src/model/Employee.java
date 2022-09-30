@@ -17,7 +17,7 @@ public class Employee {
     private Integer age;
     private String gender;
     private String startDate;
-    private String level;
+    private Integer level;
     private String teamInfo;
     private String positionTitle;
     private String phone;
@@ -64,11 +64,11 @@ public class Employee {
         this.startDate = startDate;
     }
 
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

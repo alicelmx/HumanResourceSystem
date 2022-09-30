@@ -4,6 +4,9 @@
  */
 package ui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
 import model.EmployeeList;
 
 /**
@@ -18,8 +21,9 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     public MainJFrame() {
+
         initComponents();
-        
+
         employeeList = new EmployeeList();
     }
 
@@ -40,6 +44,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Human Resource System");
+        setAlwaysOnTop(true);
+        setResizable(false);
 
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +159,21 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainJFrame().setVisible(true);
+                JFrame window = new MainJFrame();
+                window.setVisible(true);
+
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                Dimension frameSize = window.getSize();
+                if (frameSize.height > screenSize.height) {
+                    frameSize.height = screenSize.height;
+                }
+                if (frameSize.width > screenSize.width) {
+                    frameSize.width = screenSize.width;
+                }
+                window.setLocation((screenSize.width - frameSize.width) / 2,
+                        (screenSize.height - frameSize.height) / 2);
+                window.setVisible(true);
+
             }
         });
     }

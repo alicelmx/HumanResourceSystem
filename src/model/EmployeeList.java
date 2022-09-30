@@ -53,6 +53,23 @@ public class EmployeeList {
                         || s.getName().equals(keyword)
                         || s.getPhone().equals(keyword)
                         || s.getEmail().equals(keyword)
+                        || s.getStartDate().equals(keyword)
+                        || s.getGender().equals(keyword)
+                        || s.getPositionTitle().equals(keyword)
+                        || s.getTeamInfo().equals(keyword)
+                        || ("Level" + String.valueOf(s.getLevel() + 1)).equals(keyword)
                 ).collect(Collectors.toList());
+    }
+
+    public boolean checkDuplicates(Employee employee) {
+
+        List<Employee> res = this.employeeList.stream()
+                .filter(
+                        s -> s.getName().equals(employee.getName())
+                        && s.getPhone().equals(employee.getPhone())
+                        && s.getEmail().equals(employee.getEmail())
+                ).collect(Collectors.toList());
+        
+        return res.isEmpty();
     }
 }

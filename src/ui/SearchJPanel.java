@@ -44,7 +44,7 @@ public class SearchJPanel extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         txtKeyword = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -105,10 +105,10 @@ public class SearchJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSave.setText("Update");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                btnRefreshActionPerformed(evt);
             }
         });
 
@@ -121,7 +121,7 @@ public class SearchJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnView)
                         .addGap(18, 18, 18)
@@ -135,7 +135,7 @@ public class SearchJPanel extends javax.swing.JPanel {
                 .addGap(28, 28, 28))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDelete, btnSave, btnView});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDelete, btnRefresh, btnView});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +152,7 @@ public class SearchJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
                     .addComponent(btnView)
-                    .addComponent(btnSave))
+                    .addComponent(btnRefresh))
                 .addContainerGap(126, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -169,7 +169,6 @@ public class SearchJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tbEmployeeList.getModel();
         Employee selectedEmployee = (Employee) model.getValueAt(selectedRowIndex, 0);
 
-        // TODO 切换panel
         ViewJFrame viewJFrame = new ViewJFrame(selectedEmployee.getEmployeeId(), employeeList);
         viewJFrame.setVisible(true);
       
@@ -195,7 +194,7 @@ public class SearchJPanel extends javax.swing.JPanel {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         
-        // search based on name id or other field;
+        // exact match 
         String keyword = txtKeyword.getText();
         if(keyword == null || keyword.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Please Input the Keyword.");
@@ -207,11 +206,12 @@ public class SearchJPanel extends javax.swing.JPanel {
         populateTable(searchResList);
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
 
-        JOptionPane.showMessageDialog(this, "展示成功");
+        txtKeyword.setText("");
+        populateTable();
         
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
         // TODO add your handling code here:
@@ -220,7 +220,7 @@ public class SearchJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnView;
     private javax.swing.JScrollPane jScrollPane1;
