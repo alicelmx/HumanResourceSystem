@@ -44,7 +44,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Human Resource System");
-        setAlwaysOnTop(true);
         setResizable(false);
 
         btnCreate.setText("Create");
@@ -67,9 +66,9 @@ public class MainJFrame extends javax.swing.JFrame {
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(controlPanelLayout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
-                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCreate)
-                    .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCreate))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -82,22 +81,25 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnView)
-                .addContainerGap(581, Short.MAX_VALUE))
+                .addContainerGap(431, Short.MAX_VALUE))
         );
 
         controlPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCreate, btnView});
 
         splitPane.setLeftComponent(controlPanel);
 
+        workArea.setPreferredSize(new java.awt.Dimension(600, 600));
+        workArea.setSize(new java.awt.Dimension(600, 600));
+
         javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
         workArea.setLayout(workAreaLayout);
         workAreaLayout.setHorizontalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 855, Short.MAX_VALUE)
+            .addGap(0, 660, Short.MAX_VALUE)
         );
         workAreaLayout.setVerticalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
 
         splitPane.setRightComponent(workArea);
@@ -159,20 +161,20 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JFrame window = new MainJFrame();
-                window.setVisible(true);
+                MainJFrame mainJFrame = new MainJFrame();
 
-                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                Dimension frameSize = window.getSize();
-                if (frameSize.height > screenSize.height) {
-                    frameSize.height = screenSize.height;
-                }
-                if (frameSize.width > screenSize.width) {
-                    frameSize.width = screenSize.width;
-                }
-                window.setLocation((screenSize.width - frameSize.width) / 2,
-                        (screenSize.height - frameSize.height) / 2);
-                window.setVisible(true);
+//                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//                Dimension frameSize = mainJFrame.getSize();
+//                if (frameSize.height > screenSize.height) {
+//                    frameSize.height = screenSize.height;
+//                }
+//                if (frameSize.width > screenSize.width) {
+//                    frameSize.width = screenSize.width;
+//                }
+//                mainJFrame.setLocation((screenSize.width - frameSize.width) / 2,
+//                        (screenSize.height - frameSize.height) / 2);
+                mainJFrame.setLocationRelativeTo(null);
+                mainJFrame.setVisible(true);
 
             }
         });
