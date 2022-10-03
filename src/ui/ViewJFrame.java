@@ -16,7 +16,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import model.Employee;
 import model.EmployeeList;
-import model.tool.JTextFieldHintListener;
 
 /**
  *
