@@ -49,15 +49,15 @@ public class EmployeeList {
     public List<Employee> searchByKeyword(String keyword) {
         return this.employeeList.stream()
                 .filter(
-                        s -> String.valueOf(s.getEmployeeId()).equals(keyword)
-                        || s.getName().equals(keyword)
-                        || s.getPhone().equals(keyword)
-                        || s.getEmail().equals(keyword)
-                        || s.getStartDate().equals(keyword)
-                        || s.getGender().equals(keyword)
-                        || s.getPositionTitle().equals(keyword)
-                        || s.getTeamInfo().equals(keyword)
-                        || ("Level" + String.valueOf(s.getLevel() + 1)).equals(keyword)
+                        s -> String.valueOf(s.getEmployeeId()).equalsIgnoreCase(keyword)
+                        || s.getName().equalsIgnoreCase(keyword)
+                        || s.getPhone().equalsIgnoreCase(keyword)
+                        || s.getEmail().equalsIgnoreCase(keyword)
+                        || s.getStartDate().equalsIgnoreCase(keyword)
+                        || s.getGender().equalsIgnoreCase(keyword)
+                        || s.getPositionTitle().equalsIgnoreCase(keyword)
+                        || s.getTeamInfo().equalsIgnoreCase(keyword)
+                        || ("Level" + String.valueOf(s.getLevel() + 1)).equalsIgnoreCase(keyword)
                 ).collect(Collectors.toList());
     }
 
@@ -65,9 +65,9 @@ public class EmployeeList {
 
         List<Employee> res = this.employeeList.stream()
                 .filter(
-                        s -> s.getName().equals(employee.getName())
-                        && s.getPhone().equals(employee.getPhone())
-                        && s.getEmail().equals(employee.getEmail())
+                        s -> s.getName().equalsIgnoreCase(employee.getName())
+                        && s.getPhone().equalsIgnoreCase(employee.getPhone())
+                        && s.getEmail().equalsIgnoreCase(employee.getEmail())
                 ).collect(Collectors.toList());
         
         return res.isEmpty();

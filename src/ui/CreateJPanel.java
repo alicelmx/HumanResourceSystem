@@ -14,9 +14,9 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.border.TitledBorder;
 import model.Employee;
 import model.EmployeeList;
+import model.tool.JTextFieldHintListener;
 
 /**
  *
@@ -24,6 +24,7 @@ import model.EmployeeList;
  */
 public class CreateJPanel extends javax.swing.JPanel {
 
+    private static int id = 1;
     private final String dateFormat = "MM/dd/yyyy";
     private File file;
 
@@ -181,6 +182,7 @@ public class CreateJPanel extends javax.swing.JPanel {
             }
         });
 
+        txtStartDate.addFocusListener(new JTextFieldHintListener(txtStartDate, "MM/DD/YYYY"));
         txtStartDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtStartDateActionPerformed(evt);
@@ -279,7 +281,7 @@ public class CreateJPanel extends javax.swing.JPanel {
                             .addComponent(txtTeamInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(20, 20, 20)
                         .addComponent(btnUpload)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -311,7 +313,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         employee.setName(name.trim());
 
         // employee id
-        employee.setEmployeeId(employeeList.count() + 1);
+        employee.setEmployeeId(id++);
 
         // age
         String age = ftxtAge.getText();
@@ -319,7 +321,7 @@ public class CreateJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Input Age.");
             return;
         }
-        if (Integer.parseInt(age.trim()) < 0) {
+        if (Integer.parseInt(age.trim()) <= 0) {
             JOptionPane.showMessageDialog(this, "Please Make Sure Age > 0.");
             return;
         }
@@ -339,15 +341,21 @@ public class CreateJPanel extends javax.swing.JPanel {
         }
 
         // start date
+        String startDate = txtStartDate.getText();
+        if(startDate == null || startDate.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please Input Start Date.");
+            return;
+        }
+        
         DateFormat formatter = new SimpleDateFormat(dateFormat);
-        Date startDate = null;
+        Date startDateDate = null;
         try {
-            startDate = formatter.parse(txtStartDate.getText());
+            startDateDate = formatter.parse(startDate);
         } catch (Exception e3) {
             JOptionPane.showMessageDialog(this, "Please Check Your Date Format.");
             return;
         }
-        employee.setStartDate(txtStartDate.getText());
+        employee.setStartDate(startDate);
 
         employee.setLevel(cbLevel.getSelectedIndex());
         employee.setTeamInfo(txtTeamInfo.getText());
@@ -399,7 +407,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         employeeList.addNewEmployee(employee);
 
         JOptionPane.showMessageDialog(this, "New Employee Added.");
-
+        
         reinit();
 
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -507,19 +515,19 @@ public class CreateJPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void reinit() {
-
+        
         txtName.setText("");
         ftxtAge.setText("");
         btngrpSex.clearSelection();
         rbtnFemale.setSelected(false);
         rbtnMale.setSelected(false);
         rbtnSecret.setSelected(false);
-        txtStartDate.setText("");
         cbLevel.setSelectedIndex(0);
         txtTeamInfo.setText("");
         txtPositionTitle.setText("");
         txtPhone.setText("");
         txtEmail.setText("");
+        txtStartDate.setText("");
 
         // icon
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/static/defaultIcon.jpg"));
